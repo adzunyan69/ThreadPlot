@@ -24,6 +24,8 @@ private:
     QCPGraph *graph{ nullptr };
 
     void setDefaultRange();
+    void setPlotStyle();
+    void setAxisStyle(QCPAxis *axis);
     void adjustAxes(const double x, const double y);
     void adjustAxis(QCPAxis *axis, const double value);
 

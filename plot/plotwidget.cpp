@@ -9,6 +9,7 @@ PlotWidget::PlotWidget(QWidget *parent)
 
     graph = plot->addGraph();
     setDefaultRange();
+    setPlotStyle();
 }
 
 void PlotWidget::appendData(const double x, const double y)
@@ -41,6 +42,48 @@ void PlotWidget::setDefaultRange()
         plot->xAxis->setRange(xDefaultRange);
         plot->yAxis->setRange(yDefaultRange);
     }
+}
+
+void PlotWidget::setPlotStyle()
+{
+    if (plot && graph)
+    {
+        // stylesheet from 'styled plot demo'
+        graph->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1.5), QBrush(QColor(82, 237, 250)), 9));
+        graph->setLineStyle(QCPGraph::lsNone);
+        graph->setPen(QPen(QColor(120, 120, 120), 2));
+        setAxisStyle(plot->xAxis);
+        setAxisStyle(plot->xAxis2);
+        setAxisStyle(plot->yAxis);
+        setAxisStyle(plot->yAxis2);
+
+        QLinearGradient plotGradient;
+        plotGradient.setStart(0, 0);
+        plotGradient.setFinalStop(0, 350);
+        plotGradient.setColorAt(0, QColor(80, 80, 80));
+        plotGradient.setColorAt(1, QColor(50, 50, 50));
+        plot->setBackground(plotGradient);
+        QLinearGradient axisRectGradient;
+        axisRectGradient.setStart(0, 0);
+        axisRectGradient.setFinalStop(0, 350);
+        axisRectGradient.setColorAt(0, QColor(80, 80, 80));
+        axisRectGradient.setColorAt(1, QColor(30, 30, 30));
+        plot->axisRect()->setBackground(axisRectGradient);
+        plot->xAxis2->setVisible(true);
+        plot->yAxis2->setVisible(true);
+    }
+}
+
+void PlotWidget::setAxisStyle(QCPAxis *axis)
+{
+    axis->setBasePen(QPen(QColor(230, 230, 230), 1));
+    axis->setTickPen(QPen(QColor(230, 230, 230), 1));
+    axis->setSubTickPen(QPen(QColor(230, 230, 230), 1));
+    axis->setTickLabelColor(QColor(230, 230, 230));
+    axis->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    axis->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    axis->grid()->setSubGridVisible(true);
+    axis->grid()->setZeroLinePen(Qt::NoPen);
 }
 
 void PlotWidget::adjustAxes(const double x, const double y)
