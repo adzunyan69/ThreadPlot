@@ -11,8 +11,21 @@ class PlotWidget : public QWidget
 public:
     explicit PlotWidget(QWidget *parent = nullptr);
 
+
+public slots:
+    void appendData(const double x, const double y);
+    void clearData();
+
 private:
+    const QCPRange xDefaultRange{ -1.0, 1.0 };
+    const QCPRange yDefaultRange{ -1.0, 1.0 };
+
     QCustomPlot *plot{ nullptr };
+    QCPGraph *graph{ nullptr };
+
+    void setDefaultRange();
+    void adjustAxes(const double x, const double y);
+    void adjustAxis(QCPAxis *axis, const double value);
 
 signals:
 

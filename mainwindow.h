@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QDebug>
 
 #include "plot/plotwidget.h"
 
@@ -22,6 +23,8 @@ public:
     ~MainWindow();
 
 private:
+    QTimer *testTimer{ nullptr };
+
     Ui::MainWindow *ui;
     PlotWidget *plotWidget{ nullptr };
     QPushButton *start{ nullptr };
@@ -29,5 +32,12 @@ private:
     QPushButton *stop{ nullptr };
 
     bool initGUI();
+
+private slots:
+    void testAppendData();
+
+    void startClicked();
+    void pauseClicked();
+    void stopClicked();
 };
 #endif // MAINWINDOW_H

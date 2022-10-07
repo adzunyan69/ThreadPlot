@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    if( initGUI()  == false )
+    if ( initGUI()  == false )
         return;
 
 }
@@ -23,10 +23,10 @@ MainWindow::~MainWindow()
 
 bool MainWindow::initGUI()
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget());
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
     QLayout *buttonsLayout = new QHBoxLayout(this);
 
-    if(
+    if (
             mainLayout &&
             buttonsLayout &&
             plotWidget &&
@@ -34,14 +34,70 @@ bool MainWindow::initGUI()
             pause &&
             stop )
     {
+        centralWidget()->setLayout(mainLayout);
         mainLayout->addWidget(plotWidget);
         buttonsLayout->addWidget(start);
         buttonsLayout->addWidget(pause);
         buttonsLayout->addWidget(stop);
         mainLayout->addLayout(buttonsLayout);
 
-        return true;
+        bool isConnected =
+                connect(start, &QPushButton::clicked,
+                        this, &MainWindow::startClicked) &&
+                connect(pause, &QPushButton::clicked,
+                        this, &MainWindow::pauseClicked) &&
+                connect(stop, &QPushButton::clicked,
+                        this, &MainWindow::stopClicked);
+
+        if (isConnected)
+            return true;
+        else
+            return false;
     }
 
     return false;
+}
+
+void MainWindow::testAppendData()
+{
+    qDebug() << "Test Appending Data to the Plot";
+
+    static double lastX = 0.0;
+    static double lastY = 0.0;
+
+    if (plotWidget)
+    {
+        plotWidget->appendData(lastX, lastY);
+        lastX += 0.5;
+        lastY += 0.75;
+    }
+}
+
+void MainWindow::startClicked()
+{
+    if (testTimer == nullptr)
+    {
+        testTimer = new QTimer(this);
+        testTimer->setInterval(500);
+        connect(testTimer, &QTimer::timeout,
+            this, &MainWindow::testAppendData);
+    }
+
+    if (testTimer)
+        testTimer->start();
+}
+
+void MainWindow::pauseClicked()
+{
+    if (testTimer)
+        testTimer->stop();
+}
+
+void MainWindow::stopClicked()
+{
+    if (testTimer)
+        testTimer->stop();
+
+    if (plotWidget)
+        plotWidget->clearData();
 }
