@@ -26,6 +26,8 @@ private slots:
 signals:
     void suspended();
     void resumed();
+
+    void dataReceived(double x, double y);
 };
 
 #endif // DATAGENERATORCONTROLLER_H

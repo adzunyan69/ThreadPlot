@@ -17,7 +17,6 @@ DataGeneratorController::~DataGeneratorController()
 
 void DataGeneratorController::start()
 {
-    qInfo() << "Start";
     thread = new QThread;
     DataGenerator *dataGenerator = new DataGenerator();
     dataGenerator->moveToThread(thread);
@@ -40,20 +39,17 @@ void DataGeneratorController::start()
 
 void DataGeneratorController::suspend()
 {
-    qInfo() << "Suspend";
     emit suspended();
 }
 
 
 void DataGeneratorController::resume()
 {
-    qInfo() << "Resume";
     emit resumed();
 }
 
 void DataGeneratorController::stop()
 {
-    qInfo() << "Stop";
     if (thread)
     {
         thread->quit();
@@ -63,5 +59,5 @@ void DataGeneratorController::stop()
 
 void DataGeneratorController::data(double x, double y)
 {
-    qInfo() << "(x, y): " << x << " " << y;
+    dataReceived(x ,y);
 }

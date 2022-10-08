@@ -27,8 +27,6 @@ private:
     enum class State { STOPPED, STARTED, SUSPENDED };
     State state{ State::STOPPED };
 
-    QTimer *testTimer{ nullptr };
-
     Ui::MainWindow *ui;
     PlotWidget *plotWidget{ nullptr };
     DataGeneratorController *dataGeneratorController{ nullptr };
@@ -39,8 +37,6 @@ private:
     bool initGUI();
 
 private slots:
-    void testAppendData();
-
     void startClicked();
     void pauseClicked();
     void stopClicked();

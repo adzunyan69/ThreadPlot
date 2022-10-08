@@ -51,7 +51,9 @@ bool MainWindow::initGUI()
                 connect(pause, &QPushButton::clicked,
                         this, &MainWindow::pauseClicked) &&
                 connect(stop, &QPushButton::clicked,
-                        this, &MainWindow::stopClicked);
+                        this, &MainWindow::stopClicked) &&
+                connect(dataGeneratorController, &DataGeneratorController::dataReceived,
+                        plotWidget, &PlotWidget::appendData);
 
         if (isConnected)
             return true;
@@ -60,21 +62,6 @@ bool MainWindow::initGUI()
     }
 
     return false;
-}
-
-void MainWindow::testAppendData()
-{
-    qDebug() << "Test Appending Data to the Plot";
-
-    static double lastX = 0.0;
-    static double lastY = 0.0;
-
-    if (plotWidget)
-    {
-        plotWidget->appendData(lastX, lastY);
-        lastX += 0.5;
-        lastY += 0.75;
-    }
 }
 
 void MainWindow::startClicked()
@@ -94,16 +81,6 @@ void MainWindow::startClicked()
         pause->setEnabled(true);
         stop->setEnabled(true);
     }
-//    if (testTimer == nullptr)
-//    {
-//        testTimer = new QTimer(this);
-//        testTimer->setInterval(500);
-//        connect(testTimer, &QTimer::timeout,
-//            this, &MainWindow::testAppendData);
-//    }
-
-//    if (testTimer)
-//        testTimer->start();
 }
 
 void MainWindow::pauseClicked()
@@ -117,8 +94,6 @@ void MainWindow::pauseClicked()
         pause->setEnabled(false);
         stop->setEnabled(true);
     }
-//    if (testTimer)
-//        testTimer->stop();
 }
 
 void MainWindow::stopClicked()
@@ -126,15 +101,11 @@ void MainWindow::stopClicked()
     if (dataGeneratorController)
     {
         dataGeneratorController->stop();
+        plotWidget->clearData();
         state = State::STOPPED;
 
         start->setEnabled(true);
         pause->setEnabled(false);
         stop->setEnabled(false);
     }
-//    if (testTimer)
-//        testTimer->stop();
-
-//    if (plotWidget)
-//        plotWidget->clearData();
 }

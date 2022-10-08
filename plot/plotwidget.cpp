@@ -16,6 +16,7 @@ void PlotWidget::appendData(const double x, const double y)
 {
     if (plot && graph)
     {
+        qInfo() << "Appending data (x, y): " << x << " " << y;
         graph->addData(x, y);
         adjustAxes(x, y);
 
@@ -102,8 +103,8 @@ void PlotWidget::adjustAxis(QCPAxis *axis, const double value)
         auto range = axis->range();
 
         if (value < range.lower)
-            axis->setRangeLower(value);
+            axis->setRangeLower(value - 1.0);
         else if (value > range.upper)
-            axis->setRangeUpper(value);
+            axis->setRangeUpper(value + 1.0);
     }
 }

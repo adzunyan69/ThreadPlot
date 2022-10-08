@@ -9,20 +9,19 @@ DataGenerator::DataGenerator(QObject *parent)
 
 DataGenerator::~DataGenerator()
 {
-    qInfo() << "Deleted";
+    qInfo() << "Data Genrator Deleted";
 }
 
 void DataGenerator::run()
 {
     QEventLoop eventLoop;
-
-    qDebug() << "created event loop";
+    qInfo() << "Data Generator Started";
 
     auto generate = [this]
     {
-        double x = QRandomGenerator::global()->generateDouble();
-        double y = QRandomGenerator::global()->generateDouble();
-        qInfo() << "generate: " << x << " " << y;
+        double x = QRandomGenerator::global()->generateDouble() * 100 - 50;
+        double y = QRandomGenerator::global()->generateDouble() * 100 - 5;
+        qInfo() << "Generated values (x, y): " << x << " " << y;
         emit dataGenerated(x, y);
     };
 
@@ -36,12 +35,12 @@ void DataGenerator::run()
 
 void DataGenerator::suspend()
 {
-    qInfo() << "suspend data generator";
+    qInfo() << "Data Generator Suspended";
     timer->stop();
 }
 
 void DataGenerator::resume()
 {
-    qInfo() << "resumed data generator";
+    qInfo() << "Data Generator Resumed";
     timer->start();
 }
