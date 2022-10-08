@@ -35,10 +35,13 @@ private:
     QPushButton *stop{ nullptr };
 
     bool initGUI();
+    void setButtonIcon(QPushButton *button, const QString &iconPath);
 
 private slots:
     void startClicked();
     void pauseClicked();
     void stopClicked();
+    void on_actionAbout_triggered();
+    void on_actionAbout_Qt_triggered();
 };
 #endif // MAINWINDOW_H

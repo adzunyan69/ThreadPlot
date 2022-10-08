@@ -42,6 +42,10 @@ bool MainWindow::initGUI()
         buttonsLayout->addWidget(stop);
         mainLayout->addLayout(buttonsLayout);
 
+        setButtonIcon(start, ":/icons/start");
+        setButtonIcon(pause, ":/icons/pause");
+        setButtonIcon(stop, ":/icons/stop");
+
         pause->setEnabled(false);
         stop->setEnabled(false);
 
@@ -62,6 +66,16 @@ bool MainWindow::initGUI()
     }
 
     return false;
+}
+
+void MainWindow::setButtonIcon(QPushButton *button, const QString &iconPath)
+{
+//    QPixmap pixmap(iconPath);
+//    QIcon buttonIcon(pixmap);
+    button->setIcon(QIcon(iconPath));
+    button->setIconSize(QSize(50, 50));
+    button->setFixedSize(100, 100);
+//    button->setIconSize(pixmap.rect().size());
 }
 
 void MainWindow::startClicked()
@@ -109,3 +123,17 @@ void MainWindow::stopClicked()
         stop->setEnabled(false);
     }
 }
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox::about(this, "About",
+                       QString("QCustomPlot ") + QCUSTOMPLOT_VERSION_STR + "(GPLv3)\n"
+                       "Icons from https://icons8.com");
+}
+
+
+void MainWindow::on_actionAbout_Qt_triggered()
+{
+    QMessageBox::aboutQt(this, "About Qt");
+}
+

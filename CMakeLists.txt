@@ -28,6 +28,7 @@ set(PROJECT_SOURCES
         QCustomPlot/qcustomplot.h
         mainwindow.ui
         logHandler.h
+        icons.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

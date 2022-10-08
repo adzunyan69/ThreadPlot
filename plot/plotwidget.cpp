@@ -42,6 +42,8 @@ void PlotWidget::setDefaultRange()
     {
         plot->xAxis->setRange(xDefaultRange);
         plot->yAxis->setRange(yDefaultRange);
+        plot->xAxis2->setRange(xDefaultRange);
+        plot->yAxis2->setRange(yDefaultRange);
     }
 }
 
@@ -92,7 +94,9 @@ void PlotWidget::adjustAxes(const double x, const double y)
     if (plot)
     {
         adjustAxis(plot->xAxis, x);
+        adjustAxis(plot->xAxis2, x);
         adjustAxis(plot->yAxis, y);
+        adjustAxis(plot->yAxis2, y);
     }
 }
 

@@ -20,7 +20,7 @@ void DataGenerator::run()
     auto generate = [this]
     {
         double x = QRandomGenerator::global()->generateDouble() * 100 - 50;
-        double y = QRandomGenerator::global()->generateDouble() * 100 - 5;
+        double y = QRandomGenerator::global()->generateDouble() * 100 - 50;
         qInfo() << "Generated values (x, y): " << x << " " << y;
         emit dataGenerated(x, y);
     };
