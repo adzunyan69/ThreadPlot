@@ -24,8 +24,8 @@ MainWindow::~MainWindow()
 
 bool MainWindow::initGUI()
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    QLayout *buttonsLayout = new QHBoxLayout(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout();
+    QLayout *buttonsLayout = new QHBoxLayout();
 
     if (
             mainLayout &&
@@ -70,12 +70,9 @@ bool MainWindow::initGUI()
 
 void MainWindow::setButtonIcon(QPushButton *button, const QString &iconPath)
 {
-//    QPixmap pixmap(iconPath);
-//    QIcon buttonIcon(pixmap);
     button->setIcon(QIcon(iconPath));
     button->setIconSize(QSize(50, 50));
     button->setFixedSize(100, 100);
-//    button->setIconSize(pixmap.rect().size());
 }
 
 void MainWindow::startClicked()
