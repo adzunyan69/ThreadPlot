@@ -20,9 +20,14 @@ set(PROJECT_SOURCES
         mainwindow.h
         plot/plotwidget.h
         plot/plotwidget.cpp
+        generator/datagenerator.h
+        generator/datagenerator.cpp
+        generator/datageneratorcontroller.h
+        generator/datageneratorcontroller.cpp
         QCustomPlot/qcustomplot.cpp
         QCustomPlot/qcustomplot.h
         mainwindow.ui
+        logHandler.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -9,6 +9,7 @@
 #include <QDebug>
 
 #include "plot/plotwidget.h"
+#include "generator/datageneratorcontroller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,10 +24,14 @@ public:
     ~MainWindow();
 
 private:
+    enum class State { STOPPED, STARTED, SUSPENDED };
+    State state{ State::STOPPED };
+
     QTimer *testTimer{ nullptr };
 
     Ui::MainWindow *ui;
     PlotWidget *plotWidget{ nullptr };
+    DataGeneratorController *dataGeneratorController{ nullptr };
     QPushButton *start{ nullptr };
     QPushButton *pause{ nullptr };
     QPushButton *stop{ nullptr };
